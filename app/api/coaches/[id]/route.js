@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GET = async (req, res) => {
+export const GET = async (req, { params }) => {
   const fusekiEndpoint = "http://localhost:3030/Basketball/query";
 
   // SPARQL query to retrieve data
@@ -11,16 +11,18 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies/2023/11/basketballOntology#>
 
-SELECT ?name ?city ?logo
+
+SELECT ?coach ?name ?nationality
 WHERE {
-    { ?team basketballOntology:teamName ?name. }
-    { ?team basketballOntology:teamCity ?city. }
-    { ?team basketballOntology:teamLogo ?logo. }
-    
+   ?coach rdf:type basketballOntology:Coach.
+    { ?coach basketballOntology:coachName ?name. }
+    { ?coach basketballOntology:nationality ?nationality. }
+    FILTER (?name = "${params.id.replace("%20", " ")}")
 }
 `;
   try {
     // Make your GET request to the Fuseki server
+    console.log(params.id.replace("%20", " "));
     const response = await axios.get(fusekiEndpoint, {
       params: {
         query: sparqlQuery,

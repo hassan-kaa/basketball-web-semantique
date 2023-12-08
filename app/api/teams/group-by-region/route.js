@@ -5,19 +5,21 @@ export const GET = async (req, res) => {
 
   // SPARQL query to retrieve data
   const sparqlQuery = `
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies/2023/11/basketballOntology#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX owl: <http://www.w3.org/2002/07/owl#>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies/2023/11/basketballOntology#>
+  SELECT   ?region (GROUP_CONCAT(?name; SEPARATOR=", ") AS ?teams)
+  WHERE {
+     ?team rdf:type basketballOntology:Team.
+     { ?team basketballOntology:teamName ?name.}
+      { ?team basketballOntology:teamRegion ?region. }
+  }
+  GROUP BY (?region)
+  
 
-SELECT ?name ?city ?logo
-WHERE {
-    { ?team basketballOntology:teamName ?name. }
-    { ?team basketballOntology:teamCity ?city. }
-    { ?team basketballOntology:teamLogo ?logo. }
-    
-}
+
 `;
   try {
     // Make your GET request to the Fuseki server

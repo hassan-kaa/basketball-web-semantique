@@ -10,20 +10,16 @@ export const GET = async (req, res) => {
   PREFIX owl: <http://www.w3.org/2002/07/owl#>
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies/2023/11/basketballOntology#>
-  SELECT ?name ?birthDate ?height ?nationality ?position ?teamName
-  WHERE { 
-    ?player rdf:type basketballOntology:Player.
-    ?player basketballOntology:playerName ?name.
-    ?player basketballOntology:birthDate ?dateLiteral.
-    BIND(STR(?dateLiteral) AS ?birthDate)
-    ?player basketballOntology:height ?decimal.
-    BIND(STR(?decimal) AS ?height)
-    ?player basketballOntology:nationality ?nationality.
-    ?player basketballOntology:playerPosition ?position.
-    ?player basketballOntology:hasTeam ?team.
-    ?team rdf:type basketballOntology:Team.
-    ?team basketballOntology:teamName ?teamName.
+  SELECT ?name ?birthDate ?height ?nationality ?position 
+  WHERE {
+     ?player rdf:type basketballOntology:Player.
+     { ?player basketballOntology:playerName ?name.}
+      { ?player basketballOntology:birthDate ?birthDate. }
+      { ?player basketballOntology:height ?height. }
+      { ?player basketballOntology:nationality ?nationality. }
+      { ?player basketballOntology:playerPosition ?position. }
   }
+  ORDER BY ASC(?birthDate)
   
 
 

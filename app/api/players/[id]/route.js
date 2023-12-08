@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GET = async (req, res) => {
+export const GET = async (req, { params }) => {
   const fusekiEndpoint = "http://localhost:3030/Basketball/query";
 
   // SPARQL query to retrieve data
@@ -11,12 +11,17 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies/2023/11/basketballOntology#>
 
-SELECT ?name ?city ?logo
+SELECT ?name ?birthDate ?height ?nationality ?position 
 WHERE {
-    { ?team basketballOntology:teamName ?name. }
-    { ?team basketballOntology:teamCity ?city. }
-    { ?team basketballOntology:teamLogo ?logo. }
-    
+   ?player rdf:type basketballOntology:Player.
+   { ?player basketballOntology:playerName ?name.}
+    { ?player basketballOntology:birthDate ?dateLiteral. }
+   BIND(STR(?dateLiteral) AS ?birthDate)
+    { ?player basketballOntology:height ?decimal. }
+   BIND(STR(?decimal) AS ?height)
+    { ?player basketballOntology:nationality ?nationality. }
+    { ?player basketballOntology:playerPosition ?position. }
+    FILTER (?name = "${params.id}")
 }
 `;
   try {

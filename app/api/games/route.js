@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const GET = async (req, res) => {
-  const fusekiEndpoint = "http://localhost:3030/BasketBall/query";
+  const fusekiEndpoint = "http://localhost:3030/Basketball/query";
 
   // SPARQL query to retrieve data
   const sparqlQuery = `
@@ -14,7 +14,7 @@ PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies
 SELECT ?game ?result
 WHERE {
    ?game rdf:type basketballOntology:Game.
-   OPTIONAL { ?game basketballOntology:gameResult ?result. }
+    { ?game basketballOntology:gameResult ?result. }
 }
 
 `;

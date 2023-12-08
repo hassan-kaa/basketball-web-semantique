@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GET = async (req, res) => {
+export const GET = async (req, { params }) => {
   const fusekiEndpoint = "http://localhost:3030/Basketball/query";
 
   // SPARQL query to retrieve data
@@ -16,7 +16,7 @@ WHERE {
     { ?team basketballOntology:teamName ?name. }
     { ?team basketballOntology:teamCity ?city. }
     { ?team basketballOntology:teamLogo ?logo. }
-    
+   FILTER (?name = "${params.id.replace("%20", " ")}")
 }
 `;
   try {
