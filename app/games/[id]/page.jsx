@@ -25,7 +25,7 @@ function page() {
   return (
     <div>
       <Card className="max-w-[600px]">
-        <CardHeader className="flex gap-3 h-auto ">
+        <CardHeader className="flex gap-3 ">
           {/* <Image
             alt="game logo"
             height={40}

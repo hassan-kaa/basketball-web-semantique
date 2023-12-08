@@ -23,6 +23,18 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/coaches/[id]/page.jsx",
+    "app/games/[id]/page.Jsx",
+    "app/players/[id]/page.jsx",
+    "app/stadiums/[id]/page.jsx",
+    "app/teams/[id]/page.jsx",
+    "app/teams/page.jsx",
+    "app/teams/page.jsx"
+  ],
   "exclude": ["node_modules"]
 }

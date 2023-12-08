@@ -11,11 +11,12 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX basketballOntology: <http://www.semanticweb.org/hassankaabechi/ontologies/2023/11/basketballOntology#>
 
-SELECT ?name ?city ?capacity
+SELECT ?name ?city ?capacity ?image
 WHERE {
     { ?stadium basketballOntology:stadiumName ?name. }
     { ?stadium basketballOntology:stadiumCity ?city. }
     { ?stadium basketballOntology:stadiumCapacity ?capacity. }
+    { ?stadium basketballOntology:stadiumImage ?image. }
    FILTER (?city = "${params.id}")
 }
 `;

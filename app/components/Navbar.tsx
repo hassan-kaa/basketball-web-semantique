@@ -1,21 +1,35 @@
-import React from "react";
+"use client";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
   Link,
+  Switch,
   Button,
 } from "@nextui-org/react";
 import Image from "next/image";
 
 export default function Nav() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    if (isDarkMode) {
+      document.getElementById("mainClass")?.classList.replace("light", "dark");
+    } else {
+      document.getElementById("mainClass")?.classList.replace("dark", "light");
+    }
+  };
+  useEffect(() => {
+    toggleDarkMode();
+  }, [isDarkMode]);
   return (
-    <Navbar shouldHideOnScroll className="w-screen px-10 m-0 py-4">
-      <NavbarBrand className="flex items-center gap-4">
-        <Image alt="logo" src={"/logo.png"} width={40} height={40} />
-
-        <p className="font-bold text-inherit">Basketball Semantique</p>
+    <Navbar className="w-screen  px-10 m-0 py-4 ">
+      <NavbarBrand>
+        <Link className="flex items-center gap-4 text-inherit" href="/">
+          <Image alt="logo" src={"/logo.png"} width={40} height={40} />
+          <p className="font-bold text-inherit">Basketball </p>
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
@@ -44,16 +58,18 @@ export default function Nav() {
           </Button>
         </NavbarItem>
       </NavbarContent>
-      {/* <NavbarContent justify="end">
+      <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Switch
+            checked={!isDarkMode}
+            onClick={() => {
+              setIsDarkMode((prev) => !prev);
+            }}
+          >
+            Dark Theme
+          </Switch>
         </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent> */}
+      </NavbarContent>
     </Navbar>
   );
 }

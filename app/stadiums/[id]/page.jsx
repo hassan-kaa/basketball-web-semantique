@@ -1,15 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Divider,
-  Link,
-  Image,
-} from "@nextui-org/react";
+import { Card, CardHeader, CardBody, Divider, Image } from "@nextui-org/react";
 
 function page() {
   const { id } = useParams();
@@ -32,7 +24,7 @@ function page() {
 
   return (
     <div>
-      <Card className="min-w-[400px]">
+      <Card className="min-w-[400px] max-w-[700px]">
         <CardHeader className="flex gap-3 ">
           {/* <Image
             alt="stadium logo"
@@ -46,7 +38,7 @@ function page() {
           </p>
         </CardHeader>
         <Divider />
-        <CardBody>
+        <CardBody className="w-full">
           <p className="text-lg font-bold">
             Stadium capacity :{" "}
             <span className="font-light">
@@ -61,12 +53,12 @@ function page() {
               {stadium[0] && stadium[0].city.value}{" "}
             </span>
           </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem culpa
-            magnam numquam laborum, accusantium corrupti, molestias incidunt
-            eius omnis laudantium deserunt minus ratione dolorum alias
-            perspiciatis totam est? Vel, autem.
-          </p>
+          <Image
+            className="w-full relative"
+            src={`/${stadium[0] && stadium[0].image.value}`}
+            alt="Arena Image"
+            fill={true}
+          />
         </CardBody>
       </Card>
     </div>

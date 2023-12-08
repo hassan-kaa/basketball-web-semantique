@@ -16,9 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="dark text-foreground bg-background ">
+        <main className="light text-foreground bg-background " id="mainClass">
           <Nav />
-          <div className="w-screen h-screen flex items-start justify-center px-40 py-10 m-0">
+          <div className="w-screen h-screen flex items-start justify-center px-40  py-10 m-0">
             {children}
           </div>
         </main>

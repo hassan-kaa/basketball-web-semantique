@@ -7,10 +7,20 @@ import {
   TableColumn,
   TableRow,
   TableCell,
+  Button,
 } from "@nextui-org/react";
 import Link from "next/link";
 function stadiums() {
   const [stadiums, setStadiums] = useState([]);
+  const orderByCapacity = async () => {
+    try {
+      const response = await fetch("/api/stadiums/order-by-capacity");
+      const result = await response.json();
+      setStadiums(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +36,12 @@ function stadiums() {
     fetchData();
   }, []);
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-5">
+      <div className="w-full flex gap-5 items-center">
+        <Button onClick={orderByCapacity} color="danger" variant="flat">
+          Order by Capcity ↑
+        </Button>
+      </div>
       <Table isStriped aria-label="Player table" className="w-full">
         <TableHeader>
           <TableColumn>NAME</TableColumn>
